@@ -11,3 +11,10 @@
 | 17/10 | Gemini | Código para extração de características e fine-tuning com `EfficientNetB0` (224x224) e *callbacks*. | Aceite o modelo sem `Rescaling` externo, base congelada (`training=False`), `EarlyStopping` e `ModelCheckpoint`. Fine-tuning com `Adam(1e-5)` nas últimas 20 camadas. | Gravação de `fe_melhor.keras` e subida da `val_acc` de 84.32% (extração, época 15) para 88.59% (fine-tuning, época 20). |
 | 17/10 | Gemini | Indicar qual das bases (`EfficientNetB0`, `ResNet50` ou `ConvNeXtTiny`) é mais adequada e comparar parâmetros. | Aceite a escolha da `EfficientNetB0` por ser mais leve e incluir pré-processamento interno em `[0, 255]` (ao contrário da `ResNet50`, que exige `preprocess_input`). | Verificação no Colab com `m.count_params()` e `m.input_shape`: `EfficientNetB0` (4 049 571), `ResNet50` (23 587 712) e `ConvNeXtTiny` (27 820 128). |
 | 24/11 | ChatGPT | Comparar o notebook com as fichas e organizar o código por protocolo. | Unificada a divisão em `data/splits.csv`. O modelo e o limiar são escolhidos na validação antes do teste. Foram separados o teste final e o Grad-CAM. | Comparámos o código com as fichas, conferimos os outputs guardados e verificámos a sintaxe. A experiência com dropout, o teste final e os mapas ainda precisam de ser executados. |
+
+
+## Verificação final · 24/11
+
+| Ferramenta | Trabalho | Como foi verificado |
+| --- | --- | --- |
+| ChatGPT | Leitura dos quatro Grad-CAM e revisão dos resultados para o notebook, README e relatório. | A matriz soma 1 052 imagens. O recall por classe foi 91,04% (glioma), 73,51% (meningioma), 96,03% (notumor) e 98,48% (pituitary). Na validação, o limiar 0,25 teve 39 falsos negativos, face a 59 para 0,35 e 80 para 0,50. Foi aplicado ao teste, onde deu 47 falsos negativos, 50 falsos positivos e recall de 82,46%. Os quatro mapas foram revistos diretamente nos outputs. |
